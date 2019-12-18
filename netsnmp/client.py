@@ -33,10 +33,6 @@ def _parse_session_args(kargs):
         'Engineboots':0,
         'Enginetime':0,
         'UseNumeric':0,
-        'OurIdentity':'',
-        'TheirIdentity':'',
-        'TheirHostname':'',
-        'TrustCert':''
         }
     keys = list(kargs.keys())
     for key in keys:
@@ -136,31 +132,10 @@ class Session(object):
         for k,v in list(sess_args.items()):
             self.__dict__[k] = v
 
-            
-        # check for transports that may be tunneled
-        transportCheck = re.compile('^(tls|dtls|ssh)');
-        match = transportCheck.match(sess_args['DestHost'])
-
         err = None
 
         try:
-            if match:
-                self.sess_ptr = client_intf.session_tunneled(
-                    sess_args['Version'],
-                    sess_args['DestHost'],
-                    sess_args['LocalPort'],
-                    sess_args['Retries'],
-                    sess_args['Timeout'],
-                    sess_args['SecName'],
-                    secLevelMap[sess_args['SecLevel']],
-                    sess_args['ContextEngineId'],
-                    sess_args['Context'],
-                    sess_args['OurIdentity'],
-                    sess_args['TheirIdentity'],
-                    sess_args['TheirHostname'],
-                    sess_args['TrustCert'],
-                    );
-            elif sess_args['Version'] == 3:
+            if sess_args['Version'] == 3:
                 self.sess_ptr = client_intf.session_v3(
                     sess_args['Version'],
                     sess_args['DestHost'],

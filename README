@@ -1,3 +1,5 @@
+** This fork removes 'SNMPv3 over TLS support' from python3-netsnmp to make the module compilable with net-snmp 5.5 (Centos 6) **
+
 		  The Python 'netsnmp' Extension Module
 		      for the Net-SNMP Library
 
